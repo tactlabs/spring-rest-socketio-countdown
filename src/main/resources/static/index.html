@@ -20,7 +20,11 @@
                 <div class="form-group">
                     <label for="connect">WebSocket connection:</label>
                     
-                    <button id="connect_server" class="btn btn-default" type="submit">Connect1</button>
+                    <input type="text" name="room_name" id="room_name" />
+                    
+                    <button id="connect_server" class="btn btn-default" type="submit">Connect</button>
+                    
+                    <button id="start" class="btn btn-default" type="submit">Start</button>
                     
                     <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
                     </button>
@@ -30,6 +34,8 @@
         <div class="col-md-6">
             <form class="form-inline">
                 <button id="countdown" class="btn btn-default" type="submit">Count Down</button>
+                
+                <button id="extend" class="btn btn-default" type="button">Extend</button>
             </form>
         </div>
     </div>

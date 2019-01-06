@@ -26,11 +26,20 @@ function connect_server() {
         	
         	console.log('[trap1.1]greeting: ' + greeting);
         	
-            showGreeting(JSON.parse(greeting.body).content);
+        	showTimeLeft(JSON.parse(greeting.body).content);
         });
     });
     
-    //stompClient.send("/app/hello1", {}, JSON.stringify({'name': 'twenty'}));
+    //var room_name = $("#room_name").val();    
+    //print("room name : "+room_name);
+    
+    //stompClient.send("/app/update-room", {}, JSON.stringify({'name': room_name}));
+}
+
+function startGame() {
+	var room_name = $("#room_name").val();    
+    print("room name : "+room_name);
+	stompClient.send("/app/start-game", {}, JSON.stringify({'name': room_name}));
 }
 
 function disconnect() {
@@ -45,13 +54,29 @@ function sendName() {
     stompClient.send("/app/hello", {}, JSON.stringify({'name': $("#name").val()}));
 }
 
+function extendTime() {
+	
+	var room_name = $("#room_name").val();    
+    print(room_name);
+	
+    stompClient.send("/app/extend-time", {}, JSON.stringify({'name': room_name}));
+}
+
 // countDown
 function countDown() {
-    stompClient.send("/app/start-count-down", {}, JSON.stringify({'name': 'twenty'}));
+    stompClient.send("/app/start-game", {}, JSON.stringify({'name': 'twenty'}));
 }
 
 function showGreeting(message) {
     $("#greetings").append("<tr><td>" + message + "</td></tr>");
+}
+
+function print(obj){
+	console.log(obj);
+}
+
+function showTimeLeft(message) {
+    $("#greetings").html(message);
 }
 
 $(function () {
@@ -64,7 +89,13 @@ $(function () {
     
     $( "#connect_server" ).click(function() { connect_server(); });
     
+    $( "#start" ).click(function() { startGame(); });
+    
     //countdown
     $( "#countdown" ).click(function() { countDown(); });
+    
+    
+    // extend
+    $( "#extend" ).click(function() { extendTime(); });
     
 });
